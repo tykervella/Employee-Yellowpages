@@ -229,19 +229,18 @@ function init () {
       const id = data[i].getId();
       const htmlTempBeg = `<section class="content">
         <div class="content_head">
-          ${name} 
-          <br>
-          ${role}
+          <h2>${name} </h2>
+          <h3>${role}</h3>
           <br>
         </div> 
-        Employee id: ${id}
+        <u>Employee ID</u>: ${id}
         <br>
-        Email: ${email}
+        Email: <a href="${email}">${email}</a>
         <br>
         `
         if (data[i] instanceof Engineer) {
           const github = data[i].getGithub()
-          const htmlTempEnd = `Github: ${github}`
+          const htmlTempEnd = `Github: <a href="https://github.com/${github}" target="_blank">${github}</a>`
           htmlMid = htmlMid + htmlTempBeg + htmlTempEnd + `</section>`;
         } else if (data[i] instanceof Manager) {
           const officeNumber = data[i].getOfficeNumber()
@@ -249,7 +248,7 @@ function init () {
           htmlMid = htmlMid + htmlTempBeg + htmlTempEnd + `</section>`;
         } else if (data[i] instanceof Intern) {
           const school = data[i].getSchool()
-          const htmlTempEnd = `School: ${school}`
+          const htmlTempEnd = `Currently Attending: ${school}`
           htmlMid = htmlMid + htmlTempBeg + htmlTempEnd + `</section>`;
         } 
     }
@@ -296,4 +295,6 @@ function init () {
     });
   }
 
-  init();
+  // init();
+
+  writeFile(employeeTestData)
