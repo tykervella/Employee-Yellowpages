@@ -33,4 +33,11 @@ footer {
     height: 80%;
     width: 90%;
     border: 5px solid yellow;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.content {
+    flex: 1 0 30%;
+    text-align: center;
 }

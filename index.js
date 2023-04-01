@@ -1,25 +1,65 @@
 const inquirer = require('inquirer');
-let employeeData = []
+const fs = require('fs');
+let employeeData = [];
 
+const htmlBeg = `<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./assets/style.css" />
+  <title>Employee Yellow Pages</title>
+</head>
+
+<body>
+    <header> 
+        <h2>Employee Yellow Pages</h2> 
+        <b></b>
+        <h4> View your entire team at a glance!</h4>
+    </header>
+      
+
+    <main>
+      <section id="content_container">`
+
+let htmlMid = "";
+
+const htmlEnd = `</section>
+
+</main>
+
+<footer>
+
+</footer>
+
+</body>
+
+</html>`
+
+// base class Employee that will be extended to the other roles. Includes a name, id and email and functions to get each of those items. getRole function returns "Employee"
 class Employee {
-    constructor (employeeName, employeeId, email) {
-        this.employeeName = employeeName;
-        this.employeeId = employeeId; 
-        this.email = email; 
-    }  
-    getName () {
-
-    }
-    getId () {
-
-    }
-    getEmail () {
-
-    }
-    getRole () {
-        const role = "employee";
-        return role; 
-    }
+  constructor(employeeName, employeeId, email) {
+      this.employeeName = employeeName;
+      this.employeeId = employeeId;
+      this.email = email;
+  }
+  
+  getName() {
+      return this.employeeName;
+  }
+  
+  getId() {
+      return this.employeeId;
+  }
+  
+  getEmail() {
+      return this.email;
+  }
+  
+  getRole() {
+      return "Employee";
+  }
 }
 
 class Manager extends Employee {
@@ -27,8 +67,11 @@ class Manager extends Employee {
       super(employeeName, employeeId, email);
       this.officeNumber = officeNumber;
     }
+    getOfficeNumber() {
+      return this.officeNumber;
+    }
     getRole () {
-        
+      return "Manager"
     }
   }
 
@@ -38,12 +81,10 @@ class Manager extends Employee {
       this.github = github;
     }
     getGithub() {
-
+      return this.github
     }
     getRole () {
-        const role = "Engineer";
-        return role; 
-
+      return "Engineer"
     }
   }
 
@@ -53,14 +94,21 @@ class Manager extends Employee {
       this.school = school;
     }
     getSchool() {
-
+      return this.school
     }
     getRole () {
-        const role = "Intern";
-        return role; 
-
+      return "Intern";
     }
   }
+
+  let employeeTestData = [
+    new Manager('Tyler', '1', 'email@example.com', 'A103'),
+    new Engineer('Emily', '2', 'email@example.com', 'github'),
+    new Engineer('Colleen', '3', 'email@example.com', 'github'),
+    new Intern('Oskar', '4', 'email@example.com', 'UW'),
+    new Intern('River', '5', 'email@example.com', 'UW')
+  ];
+
 
 function init () {
     inquirer
@@ -173,6 +221,48 @@ function init () {
       })
   }
 
+  function writeFile(data) {
+    for (var i=0; i<data.length; i++) {
+      const name = data[i].getName();
+      const role = data[i].getRole();
+      const email = data[i].getEmail();
+      const id = data[i].getId();
+      const htmlTempBeg = `<section class="content">
+        <div class="content_head">
+          ${name} 
+          <br>
+          ${role}
+          <br>
+        </div> 
+        Employee id: ${id}
+        <br>
+        Email: ${email}
+        <br>
+        `
+        if (data[i] instanceof Engineer) {
+          const github = data[i].getGithub()
+          const htmlTempEnd = `Github: ${github}`
+          htmlMid = htmlMid + htmlTempBeg + htmlTempEnd + `</section>`;
+        } else if (data[i] instanceof Manager) {
+          const officeNumber = data[i].getOfficeNumber()
+          const htmlTempEnd = `Office Number: ${officeNumber}`
+          htmlMid = htmlMid + htmlTempBeg + htmlTempEnd + `</section>`;
+        } else if (data[i] instanceof Intern) {
+          const school = data[i].getSchool()
+          const htmlTempEnd = `School: ${school}`
+          htmlMid = htmlMid + htmlTempBeg + htmlTempEnd + `</section>`;
+        } 
+    }
+    fs.writeFile(`./public/index.html`, htmlBeg+htmlMid+htmlEnd, (err) => {
+      //checks to see if the console throws an error
+      if (err) {
+        console.log('Could not generate index.html');
+      } else {
+        console.log("New index.html generated.")
+      }
+    });
+  }
+
   function addAnotherRole () {
     inquirer
     .prompt([
@@ -184,7 +274,7 @@ function init () {
           // gives each option a unique value that is returned as a promise
           {name: "Add an engineer.", value: 001},
           {name: "Add an intern.", value: 002},
-          {name: "I'm all done.", value: 003}
+          {name: "I'm finished building my team", value: 003}
         ]
       },
     ])
@@ -200,15 +290,7 @@ function init () {
         addIntern();
         break;
       case 3:
-        for (var i= 0; i<employeeData.length; i++) {
-          if (employeeData[i] instanceof Engineer) {
-            console.log ("Engineer")
-          } else if (employeeData[i] instanceof Manager) {
-            console.log ("Manager")
-          } else if (employeeData[i] instanceof Intern) {
-            console.log ("Intern")
-          } 
-        }
+        writeFile(employeeData);
         break;
       }
     });
