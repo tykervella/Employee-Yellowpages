@@ -4,6 +4,8 @@
 
 ![Preview](./preview.png)
 
+![Generated HTML File](./generatedHTML.png)
+
 [Project DEMO](https://www.loom.com/share/4469e6e5ed694069893783f9c0bfc12d)
 
 --- 

@@ -7,7 +7,7 @@ describe('Intern', () => {
   describe('valid', () => {
     it('Must have an employeeName, employeeId, email, and school ', () => {
       const newIntern = new Intern("Name","Id","Email","School");
-      expect([newIntern.employeeName, newIntern.employeeId, newIntern.email, newIntern.school]).toEqual(["Name","Id","Email","School"]);
+      expect([newIntern.getName(), newIntern.getId(), newIntern.getEmail(), newIntern.getSchool(), newIntern.getRole()]).toEqual(["Name","Id","Email","School","Intern"]);
     });
   });
 });

@@ -7,7 +7,7 @@ describe('Manager', () => {
   describe('valid', () => {
     it('Must have an employeeName, employeeId, email, and officeNumber ', () => {
       const newManager = new Manager("Name","Id","Email","Office Number");
-      expect([newManager.employeeName, newManager.employeeId, newManager.email, newManager.officeNumber]).toEqual(["Name","Id","Email","Office Number"]);
+      expect([newManager.getName(), newManager.getId(), newManager.getEmail(), newManager.getOfficeNumber(), newManager.getRole()]).toEqual(["Name","Id","Email","Office Number","Manager"]);
     });
   });
 });
