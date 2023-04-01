@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Josefin+Sans:wght@600&family=Lobster&display=swap');
+const style = `@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Josefin+Sans:wght@600&family=Lobster&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Josefin+Sans:wght@600&family=Lobster&family=Old+Standard+TT&display=swap');
 
 * {
@@ -75,3 +75,6 @@ h3 {
     margin-bottom: 18px;
 }
 
+`
+
+module.exports = style
