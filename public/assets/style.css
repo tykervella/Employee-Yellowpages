@@ -1,0 +1,36 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+h1,h2,h3,h4,h5,h6,p,a,b {
+    background-color: transparent;
+    text-align: center;
+}
+
+header {
+        background-color: black;
+        color: white;
+        height: 12vh;
+}
+
+main {
+    background-color: skyblue;
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+footer {
+    background-color: black;
+    color: white;
+    height: 8vh;
+}
+
+#content_container {
+    display: flex;
+    height: 80%;
+    width: 90%;
+    border: 5px solid yellow;
+}
