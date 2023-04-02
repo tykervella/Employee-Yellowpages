@@ -50,7 +50,7 @@ To start the command line application, run node index.js in the node terminal. Y
 
 ## CONTRIBUTIONS
 
-[Starter Code](https://github.com/coding-boot-camp/potential-enigma)
+N/A
 
 ---
 
